@@ -1,0 +1,46 @@
+.quill-editor .ql-toolbar {
+  border: 1px solid #f97316; /* Tailwind's orange-500 */
+  border-bottom: none;
+  background-color: rgba(0, 0, 0, 0.5); /* Black with opacity */
+  color: white;
+  border-radius: 0.375rem 0.375rem 0 0; /* Rounded top corners */
+  transition: border-color 0.3s;
+}
+
+.quill-editor .ql-toolbar .ql-stroke {
+  stroke: white; /* Change toolbar icons to white */
+}
+
+.quill-editor .ql-toolbar .ql-fill {
+  fill: white; /* Change toolbar icons to white */
+}
+
+.quill-editor .ql-toolbar .ql-picker {
+  color: white; /* Change toolbar pickers to white */
+}
+
+.quill-editor .ql-container {
+  border: 1px solid #f97316; /* Tailwind's orange-500 */
+  border-top: none;
+  background-color: rgba(0, 0, 0, 0.5); /* Black with opacity */
+  color: white;
+  border-radius: 0 0 0.375rem 0.375rem; /* Rounded bottom corners */
+  min-height: 300px; /* Adjust the height as needed */
+  padding: 12px 16px; /* Similar to input padding */
+  transition: border-color 0.3s;
+}
+
+.quill-editor .ql-editor {
+  background-color: rgba(0, 0, 0, 0.5); /* Black with opacity */
+  color: white;
+  border-radius: 0 0 0.375rem 0.375rem; /* Rounded bottom corners */
+}
+
+.quill-editor .ql-editor::placeholder {
+  color: #9ca3af; /* Tailwind's placeholder-gray-400 */
+}
+
+.quill-editor:hover .ql-toolbar,
+.quill-editor:hover .ql-container {
+  border-color: #ea580c; /* Tailwind's orange-600 for hover effect */
+}

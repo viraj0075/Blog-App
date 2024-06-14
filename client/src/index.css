@@ -1,0 +1,36 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  background:#030d2e;
+  font-family: 'Lato', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.custom-content a {
+  @apply underline text-inherit;
+}
+
+.custom-content img {
+  @apply max-w-full h-auto block my-4;
+}
+
+.custom-content code {
+  @apply bg-gray-800 text-green-400 p-2 rounded font-mono;
+}
+
+.custom-content pre {
+  @apply bg-gray-900 text-white p-4 rounded overflow-x-auto;
+}
+
+.custom-content h1 {
+  @apply text-3xl font-bold mt-6 mb-4;
+}
+
+.custom-content h2 {
+  @apply text-2xl font-medium mt-5 mb-3;
+}
+
+.custom-content h3 {
+  @apply text-xl font-thin mt-4 mb-2;
+}
