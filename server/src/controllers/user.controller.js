@@ -195,10 +195,20 @@ const editPost = AsyncHandlers(async (req, res) => {
   const { id } = req.params;
   const { file } = req.files;
   const { title, summary, text } = req.body;
-  const  {accessToken}  = req.cookies;
-  console.log(accessToken);
 
-  console.log(new Object(file));
+  console.log(id,title,summary,text,file[0]?.path)
+
+  
+  const { accessToken } = req.cookies;
+  console.log(accessToken);
+  const verifiedToken = await veriftJwtToken(accessToken);
+  if (!verifiedToken)
+    throw new ApiError(
+      400,
+      "Login Again or Register if you dont have  registered"
+    );
+
+
   const filePath = file[0]?.path;
   console.log(filePath);
   if (!filePath) {
@@ -209,13 +219,6 @@ const editPost = AsyncHandlers(async (req, res) => {
   if (!fileUpload) throw new ApiError(400, "Cant Upload on the Cloudinary");
 
   console.log(accessToken);
-  const verifiedToken = await veriftJwtToken(accessToken);
-  console.log(verifiedToken?._id);
-  if (!verifiedToken)
-    throw new ApiError(
-      400,
-      "Login Again or Register if you dont have  registered"
-    );
 
   const posDoc = await Post.findById(id);
   if (!posDoc) throw new ApiError(400, "Error for Fetching the Post");
@@ -227,7 +230,8 @@ const editPost = AsyncHandlers(async (req, res) => {
   const isAuthor = Author.toString() === verfiedId;
   if (!isAuthor) throw new ApiError(401, "You are not Author");
 
-  const updatedPost = await Post.findByIdAndUpdate(id,
+  const updatedPost = await Post.findByIdAndUpdate(
+    id,
     {
       $set: {
         title,
