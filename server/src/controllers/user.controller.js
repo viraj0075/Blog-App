@@ -196,9 +196,8 @@ const editPost = AsyncHandlers(async (req, res) => {
   const { file } = req.files;
   const { title, summary, text } = req.body;
 
-  console.log(id,title,summary,text,file[0]?.path)
+  console.log(id, title, summary, text, file[0]?.path);
 
-  
   const { accessToken } = req.cookies;
   console.log(accessToken);
   const verifiedToken = await veriftJwtToken(accessToken);
@@ -207,7 +206,6 @@ const editPost = AsyncHandlers(async (req, res) => {
       400,
       "Login Again or Register if you dont have  registered"
     );
-
 
   const filePath = file[0]?.path;
   console.log(filePath);
@@ -226,7 +224,6 @@ const editPost = AsyncHandlers(async (req, res) => {
 
   const Author = posDoc?.author?._id;
   const verfiedId = verifiedToken?._id;
-  console.log(Author, verfiedId);
   const isAuthor = Author.toString() === verfiedId;
   if (!isAuthor) throw new ApiError(401, "You are not Author");
 
@@ -248,6 +245,38 @@ const editPost = AsyncHandlers(async (req, res) => {
     .json(new ApiResponse(200, { updatedPost }, "Post Updated Successfully"));
 });
 
+const deletePost = AsyncHandlers(async (req, res) => {
+  const { id } = req.params;
+  const { accessToken } = req.cookies;
+  console.log(accessToken);
+  const verifiedToken = await veriftJwtToken(accessToken);
+  if (!verifiedToken)
+    throw new ApiError(
+      400,
+      "Login Again or Register if you dont have  registered"
+    );
+
+  //for the finding the Id
+  const posDoc = await Post.findById(id);
+  if (!posDoc) throw new ApiError(400, "Error for Fetching the Post");
+  console.log(posDoc);
+
+  //For the author Verfication
+  const Author = posDoc?.author?._id;
+  const verfiedId = verifiedToken?._id;
+  console.log(Author, verfiedId);
+  const isAuthor = Author.toString() === verfiedId;
+  if (!isAuthor) throw new ApiError(401, "You are not Author");
+
+  const deletedPost = await Post.findByIdAndDelete(id, {
+    new: true,
+  });
+
+  res
+  .status(200)
+  .json(new ApiResponse(200, { deletedPost }, "Post Deleted Successfully"));
+});
+
 export {
   registerUser,
   loginUser,
@@ -257,4 +286,5 @@ export {
   postList,
   postById,
   editPost,
+  deletePost
 };

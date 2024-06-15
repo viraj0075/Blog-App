@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { Navigate, useParams } from 'react-router-dom';
 import Editor from "../components/Editor";
 
+
+
 const EditPost = () => {
     const { id } = useParams();
     console.log(id)
@@ -66,6 +68,11 @@ const EditPost = () => {
     return (
         <>
             <div className="lg:mx-[18rem] mx-[2rem] p-4 bg-[#030d2e]">
+                <div>
+                    <h2 className="mt-6 text-center text-4xl leading-9 font-extrabold text-orange-500">
+                        Edit Post
+                    </h2>
+                </div>
                 <form onSubmit={editedPost} className="space-y-4">
                     <input type="text"
                         placeholder="Title"

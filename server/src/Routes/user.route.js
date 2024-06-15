@@ -1,6 +1,7 @@
 import { Router } from "express";
 import {
   createPost,
+  deletePost,
   editPost,
   loginUser,
   logoutUser,
@@ -37,5 +38,6 @@ router.route("/editpost/:id").put(
   ]),
   editPost
 );
+router.route("/deletepost/:id").delete(deletePost);
 
 export default router;

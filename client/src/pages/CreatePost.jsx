@@ -125,7 +125,7 @@ const CreatePost = () => {
     <div className="flex items-center justify-center py-8 px-4 sm:px-6 lg:px-48">
       <div className="w-full space-y-8">
         <div>
-          <h2 className="mt-6 text-center text-4xl leading-9 font-extrabold text-white">
+          <h2 className="mt-6 text-center text-4xl leading-9 font-extrabold text-orange-500">
             Create New Post
           </h2>
         </div>
@@ -145,7 +145,7 @@ const CreatePost = () => {
                 value={blogData.title}
                 onChange={handleChange}
                 required
-                className="appearance-none rounded-none relative block w-full px-4 py-3 border  placeholder-gray-500 text-white rounded-t-md focus:outline-none focus:ring-[#030d2e] focus:z-10 text-lg bg-opacity-50 bg-black"
+                className="appearance-none rounded-none relative block w-full px-4 py-3 border  placeholder-gray-500 text-orange-500 rounded-t-md focus:outline-none focus:ring-[#030d2e] focus:z-10 text-lg bg-opacity-50 bg-[#030d2e] border-blue-950"
                 placeholder="Enter title"
               />
             </div>
@@ -163,7 +163,7 @@ const CreatePost = () => {
                 value={blogData.summary}
                 onChange={handleChange}
                 required
-                className="appearance-none rounded-none relative block w-full px-4 py-3 border  placeholder-gray-500 text-white rounded-t-md focus:outline-none focus:ring-[#030d2e] focus:z-10 text-lg bg-opacity-50 bg-black"
+                className="appearance-none rounded-none relative block w-full px-4 py-3 border  placeholder-gray-500 text-white rounded-t-md focus:outline-none focus:ring-[#030d2e] focus:z-10 text-lg bg-opacity-50 bg-[#030d2e] border-blue-950"
                 placeholder="Enter summary"
               />
             </div>
@@ -179,7 +179,7 @@ const CreatePost = () => {
                 name="file"
                 type="file"
                 onChange={handleChange}
-                className="appearance-none rounded-none relative block w-full px-4 py-3 border  placeholder-gray-500 text-white rounded-t-md focus:outline-none focus:ring-[#030d2e] focus:z-10 text-lg bg-opacity-50 bg-black"
+                className="appearance-none rounded-none relative block w-full px-4 py-3 border-blue-950 text-white rounded-t-md focus:outline-none focus:ring-[#030d2e] focus:z-10 text-lg bg-opacity-50  bg-[#030d2e]"
               />
             </div>
             <div className="py-4">
@@ -195,7 +195,7 @@ const CreatePost = () => {
                 onChange={handleContent}
                 modules={modules}
                 formats={formats}
-                className="quill-editor ql-error"
+                className="quill-editor ql-error placeholder-white"
                 placeholder="Enter Content"
               />
             </div>
@@ -204,7 +204,7 @@ const CreatePost = () => {
           <div>
             <button
               type="submit"
-              className="group relative w-full flex justify-center py-3 px-4 border border-transparent text-lg font-medium rounded-md text-white bg-orange-600 hover:bg-[#030d2e] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-white"
+              className="group relative w-full flex justify-center py-3 px-4 border border-transparent text-lg font-medium rounded-md text-white bg-orange-600  focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-white"
             >
               {loading ? <img src={loadingGIF} alt="Loading" /> : "Submit"}
             </button>
