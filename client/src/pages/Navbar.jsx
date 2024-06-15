@@ -22,6 +22,7 @@ const Navbar = () => {
         .then((userdata) => {
           console.log(userdata?.data?.verifiedToken?.username)
           setUsername(userdata?.data?.verifiedToken?.username)
+          dispatch(updateUserInfo(userdata?.data?.verifiedToken))
         })
     }
   };

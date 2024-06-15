@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom';
+import { Navigate, useParams } from 'react-router-dom';
 import Editor from "../components/Editor";
 
 const EditPost = () => {
@@ -10,16 +10,19 @@ const EditPost = () => {
     const [content, setContent] = useState('');
     const [files, setFiles] = useState('');
     const [redirect, setRedirect] = useState(false);
+    const [loading, setLoading] = useState(false);
+
 
     const editPostById = async () => {
         const postById = await fetch(
             `http://localhost:4000/api/v1/users/postdetails/${id}`,
             {
                 method: "GET",
+                credentials: "include"
             },
         );
         if (postById.ok) {
-            console.log("inpodsybyt oid ")
+            console.log("INside Post By ID")
             postById.json().then(response => {
                 setTitle(response?.data?.postData?.title);
                 setContent(response?.data?.postData?.text);
@@ -42,15 +45,20 @@ const EditPost = () => {
             data.set('file', files?.[0]);
         }
         console.log(data)
-        const edit = await fetch(`http://localhost:4000/api/v1/users/editpost/${id}`, {
+        const edit = await fetch("http://localhost:4000/api/v1/users/editpost/" + id, {
             method: "PUT",
             body: data,
+            credentials: "include"
         });
-        if(edit.ok)
-            {
-                console.log(edit?.data,"Post Successfully Updated")
-            }
+        if (edit.ok) {
+            console.log(edit.json().then(data => console.log(data)), "Post Successfully Updated")
+            setRedirect(true)
+        }
 
+    }
+
+    if (redirect) {
+        return <Navigate to={"/"} />
     }
 
 
