@@ -8,6 +8,7 @@ import PostDetailsPage from "./pages/PostDetailsPage";
 import { Provider } from "react-redux";
 import store from "./store/store";
 import EditPost from "./pages/EditPost";
+import UserProfile from "./pages/UserProfile";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
             <Route path={"/create"} element={<CreatePost />} />
             <Route path={"/postdetails/:id"} element={<PostDetailsPage/>}/>
             <Route path={"/editpost/:id"} element={<EditPost/>}/>
+            <Route path={"/userprofile"} element={<UserProfile/>}/>
           </Route>
         </Routes>
       </Provider>
