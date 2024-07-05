@@ -77,7 +77,7 @@ const PostDetailsPage = () => {
                         <h1 className="w-full  bg-transparent text-white placeholder-gray-400 font-bold text-3xl text-center">{postInfo?.title}</h1>
                         {userInfo._id === postInfo?.author?._id &&
                             (<Link to={`/editpost/${postInfo?._id}`}>
-                                (<FaEdit className="h-6 w-6 text-orange-500 cursor-pointer hover:text-orange-700" />)
+                                <FaEdit className="h-6 w-6 text-orange-500 cursor-pointer hover:text-orange-700" />
                             </Link>)
                         }
                         {userInfo._id === postInfo?.author?._id && (
@@ -87,25 +87,11 @@ const PostDetailsPage = () => {
                     </div>
 
 
-                    <div className='p-2 rounded-lg border-none flex justify-center items-center'>
+                    {/* <div className='p-2 rounded-lg border-none flex justify-center items-center'>
                         <img className=' object-cover' src={postInfo?.file} alt="" />
-                    </div>
-                    <h1 className="w-full p-2 bg-transparent text-white placeholder-gray-400 font-semibold text-xl text-center">Created By: @ {postInfo?.author?.username}</h1>
-                    <h1 className="w-full p-2 bg-transparent text-white placeholder-gray-400 font-thin text-xl text-center">Date: {postInfo?.createdAt}</h1>
+                    </div> */}
 
-                    <div className='flex items-center justify-around'>
-
-                        {userInfo._id === postInfo?.author?._id &&
-                            <Link to={`/editpost/${postInfo?._id}`}>
-                                <button className="w-[150px]  bg-orange-500 text-white p-2 rounded hover:bg-orange-600">Update post</button>
-                            </Link>
-                        }
-                        {userInfo._id === postInfo?.author?._id &&
-                            (<button className="w-[150px]  bg-orange-500 text-white p-2 rounded hover:bg-orange-600">Delete post</button>)
-
-                        }
-                    </div>
-
+                  
 
                     <div className='flex items-center content-center lg:mx-[8rem] mx-[0rem]'>
 
@@ -115,6 +101,8 @@ const PostDetailsPage = () => {
                         ></div>
                     </div>
 
+                    <h1 className="w-full p-2 bg-transparent text-white placeholder-gray-400 font-semibold text-xl text-center">Created By: @ {postInfo?.author?.username}</h1>
+                    <h1 className="w-full p-2 bg-transparent text-white placeholder-gray-400 font-thin text-xl text-center">Date: {postInfo?.createdAt}</h1>
 
                     {/* <Editor onChange={setContent} value={content} className="w-full bg-transparent text-white focus:outline-none focus:ring-2 focus:ring-orange-500" /> */}
                 </div>

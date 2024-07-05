@@ -1,21 +1,17 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import toodle from "../assets/doodles-7251441_1280.png";
-import { Link, Navigate, redirect } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { updateUserInfo } from "../store/userSlice";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 const Login = () => {
   const [loginData, setLoginData] = useState({
     email: "",
     password: "",
   });
-  const [errors, setErrors] = useState("");
   const [redirect, setRedirect] = useState(false);
 
-  const userInfo = useSelector(state => state.user.userInfo);
   const dispatch = useDispatch();
-
-
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -27,11 +23,8 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!formValid) {
-      console.log(loginData);
-      setErrors("All feilds Are required");
+      console.log("All fields are required");
     } else {
-      console.log(loginData, "Data Sent Successfully");
-
       try {
         const loginresponse = await fetch(
           "http://localhost:4000/api/v1/users/login",
@@ -49,10 +42,10 @@ const Login = () => {
             console.log(user);
           });
         } else {
-          console.log("wrong Credentails");
+          console.log("Wrong credentials");
         }
       } catch (error) {
-        console.log(error, "This is Error from loginresponse c:35");
+        console.log(error, "Error from loginresponse");
       }
 
       setLoginData({
@@ -67,34 +60,30 @@ const Login = () => {
   }
 
   return (
-    <div className=" bg-black-50 flex items-center justify-center py-12 sm:px-6 lg:px-8 lg:flex-row">
+    <div className="bg-[#030d2e] min-h-screen flex items-center justify-center py-12 sm:px-6 lg:px-8 lg:flex-row">
       <div className="hidden lg:block">
         <img
           className="object-cover mt-[4.5rem] mr-9 w-[500px] h-[500px]"
           src={toodle}
+          alt="Doodle"
         />
       </div>
-      <div className="sm:w-full sm:max-w-md ">
+      <div className="sm:w-full sm:max-w-md">
         <div className="sm:mx-auto sm:w-full sm:max-w-md">
-          <img
-            className="mx-auto h-10 w-auto"
-            src="https://www.svgrepo.com/show/301692/login.svg"
-            alt="Workflow"
-          />
           <h2 className="mt-6 text-center text-3xl leading-9 font-extrabold text-white">
-            Create a new account
+            Log In to Your Account
           </h2>
         </div>
 
         <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-          <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
+          <div className="py-8 px-4 shadow sm:rounded-lg sm:px-10">
             <form onSubmit={handleSubmit}>
               <div className="mt-6">
                 <label
                   htmlFor="email"
-                  className="block text-sm font-medium leading-5 text-gray-700"
+                  className="block text-md  font-bold mb-2 leading-5 text-white"
                 >
-                  Enter the email
+                  Enter your email
                 </label>
                 <div className="mt-1 relative rounded-md shadow-sm">
                   <input
@@ -103,8 +92,8 @@ const Login = () => {
                     name="email"
                     value={loginData.email}
                     onChange={handleChange}
-                    placeholder="enter your example@email.com"
-                    className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-orange focus:border-orange-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+                    placeholder="Enter your email"
+                    className="appearance-none block w-full px-3 py-2 border rounded-md placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
                     required
                   />
                 </div>
@@ -113,7 +102,7 @@ const Login = () => {
               <div className="mt-6">
                 <label
                   htmlFor="password"
-                  className="block text-sm font-medium leading-5 text-gray-700"
+                  className="block text-md  font-bold mb-2 leading-5 text-white"
                 >
                   Password
                 </label>
@@ -124,8 +113,8 @@ const Login = () => {
                     type="password"
                     value={loginData.password}
                     onChange={handleChange}
-                    placeholder="Enter the Password"
-                    className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-orange focus:border-orange-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+                    placeholder="Enter your password"
+                    className="appearance-none block w-full px-3 py-2 border rounded-md placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
                     required
                   />
                 </div>
@@ -138,13 +127,13 @@ const Login = () => {
                     disabled={!formValid}
                     className="w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-orange-600 hover:bg-orange-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 transition duration-150 ease-in-out"
                   >
-                    Login
+                    Log In
                   </button>
                 </span>
               </div>
             </form>
             <p className="mt-2 text-center text-sm leading-5 text-gray-500 max-w">
-              Or
+              Or{" "}
               <Link
                 to="/signup"
                 className="font-medium text-orange-600 hover:text-orange-500 focus:outline-none focus:underline transition ease-in-out duration-150"
