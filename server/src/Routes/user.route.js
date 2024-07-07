@@ -3,13 +3,11 @@ import {
   createPost,
   deletePost,
   editPost,
-  loginUser,
-  logoutUser,
   postById,
   postList,
-  registerUser,
-  userProfile,
-} from "../controllers/user.controller.js";
+} from "../controllers/post.controller.js";
+
+import { loginUser,userProfile,logoutUser,registerUser, updateUserProfile,getUserById } from "../controllers/user.controller.js";
 import { upload } from "../middleware/multer.middleware.js";
 
 const router = Router();
@@ -39,5 +37,7 @@ router.route("/editpost/:id").put(
   editPost
 );
 router.route("/deletepost/:id").delete(deletePost);
+router.route("/updateuser/:id").put(updateUserProfile);
+router.route("/userdetails/:id").get(getUserById);
 
 export default router;

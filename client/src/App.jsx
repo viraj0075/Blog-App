@@ -22,7 +22,7 @@ function App() {
             <Route path={"/create"} element={<CreatePost />} />
             <Route path={"/postdetails/:id"} element={<PostDetailsPage/>}/>
             <Route path={"/editpost/:id"} element={<EditPost/>}/>
-            <Route path={"/userprofile"} element={<UserProfile/>}/>
+            <Route path={"/updateuser/:id"} element={<UserProfile/>}/>
           </Route>
         </Routes>
       </Provider>
