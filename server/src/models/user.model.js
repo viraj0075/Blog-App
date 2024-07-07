@@ -22,6 +22,9 @@ const UserSchema = new Schema(
       required: true,
       min: 6,
     },
+    imageUrl:{
+      type:String
+    },
     refreshToken: {
       type: String,
     },

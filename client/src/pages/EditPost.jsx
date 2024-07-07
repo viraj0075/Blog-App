@@ -74,20 +74,44 @@ const EditPost = () => {
                     </h2>
                 </div>
                 <form onSubmit={editedPost} className="space-y-4">
+                    <label
+                        htmlFor="image"
+                        className="block text-lg font-medium text-white"
+                    >
+                        Title
+                    </label>
                     <input type="text"
                         placeholder="Title"
                         value={title}
                         onChange={ev => setTitle(ev.target.value)}
                         className="w-full p-2 bg-transparent text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-orange-500" />
+                    <label
+                        htmlFor="image"
+                        className="block text-lg font-medium text-white"
+                    >
+                        Summary
+                    </label>
                     <input type="text"
                         placeholder="Summary"
                         value={summary}
                         onChange={ev => setSummary(ev.target.value)}
                         className="w-full p-2 bg-transparent text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-orange-500" />
+                    <label
+                        htmlFor="image"
+                        className="block text-lg font-medium text-white"
+                    >
+                        Cover Image
+                    </label>
                     <input type="file"
                         placeholder='Choose the Cover image to update '
                         onChange={ev => setFiles(ev.target.files)}
                         className="w-full p-2 bg-transparent text-white focus:outline-none focus:ring-2 focus:ring-orange-500" />
+                    <label
+                        htmlFor="image"
+                        className="block text-lg font-medium text-white"
+                    >
+                        Content
+                    </label>
                     <Editor onChange={setContent} value={content} className="w-full bg-transparent text-white focus:outline-none focus:ring-2 focus:ring-orange-500" />
                     <button className="w-full bg-orange-500 text-white p-2 rounded hover:bg-orange-600" type='submit'>Update post</button>
                 </form>
