@@ -18,6 +18,10 @@ const PostSchema = new Schema(
       type: String,
       require: true,
     },
+    publicId:{
+      type:String,
+      require:true
+    },
     author:{
       type:Schema.Types.ObjectId,
       ref:"User"
