@@ -27,15 +27,7 @@ router.route("/createpost").post(
 );
 router.route("/postlist").get(postList);
 router.route("/postdetails/:id").get(postById);
-router.route("/editpost/:id").put(
-  upload.fields([
-    {
-      name: "file",
-      maxcount: 10,
-    },
-  ]),
-  editPost
-);
+router.route("/editpost/:id").put(editPost);
 router.route("/deletepost/:id").delete(deletePost);
 router.route("/updateuser/:id").put(updateUserProfile);
 router.route("/userdetails/:id").get(getUserById);

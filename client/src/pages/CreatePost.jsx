@@ -45,13 +45,6 @@ const CreatePost = () => {
   data.set('text', text);
 
 
-  const isFormValid = () => {
-    if (blogData.title && blogData.summary && blogData.file && text) {
-      setErrors("All feilds Are Required")
-      return true;
-    }
-    return false;
-  }
 
 
   const modules = {
@@ -89,10 +82,7 @@ const CreatePost = () => {
     const newObject = { ...blogData, text: text }
     console.log(newObject);
 
-    if (!isFormValid()) {
-      console.log(isFormValid());
-      setErrors("All feilds Are required");
-    } else {
+ 
       setLoading(true);
       const responseOfCreatePost = await fetch(
         "http://localhost:4000/api/v1/users/createpost",
@@ -106,7 +96,7 @@ const CreatePost = () => {
       responseOfCreatePost.json().then((data => console.log(data)));
       setLoading(false);
       setRedirect(true);
-    }
+    
 
     setBlogData({
       title: "",
