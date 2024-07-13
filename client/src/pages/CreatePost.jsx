@@ -2,12 +2,15 @@ import React, { useState } from "react";
 import "react-quill/dist/quill.snow.css";
 import "../_textEditor.scss";
 import ReactQuill from 'react-quill';
-import loadingGIF from "../assets/loading.gif";
 import { Navigate } from "react-router-dom";
+import { newPost } from "../apis/postApi";
+import Loading from "../components/Loading";
+import toast from "react-hot-toast";
 
 const CreatePost = () => {
   const [loading, setLoading] = useState(false);
   const [redirect, setRedirect] = useState(false);
+  const [disabled, setDisabled] = useState(false);
   const [blogData, setBlogData] = useState({
     title: "",
     summary: "",
@@ -30,7 +33,7 @@ const CreatePost = () => {
     const { name, value, files } = e.target;
     if (name === 'file') {
       console.log(files);
-      setBlogData({ ...blogData, file: files[0] });
+      setBlogData({ ...blogData, file: files?.[0] });
     } else {
       setBlogData({ ...blogData, [name]: value });
     }
@@ -43,8 +46,6 @@ const CreatePost = () => {
   data.set('summary', blogData.summary);
   data.set('file', blogData.file);
   data.set('text', text);
-
-
 
 
   const modules = {
@@ -80,23 +81,26 @@ const CreatePost = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const newObject = { ...blogData, text: text }
-    console.log(newObject);
+    console.log(newObject, "THis is object from the create post");
+    setLoading(true);
+    setDisabled(true);
 
- 
-      setLoading(true);
-      const responseOfCreatePost = await fetch(
-        "http://localhost:4000/api/v1/users/createpost",
-        {
-          method: "POST",
-          body: data,
-          credentials:"include"
-        }
-      );
-      console.log(newObject, "From Request");
-      responseOfCreatePost.json().then((data => console.log(data)));
-      setLoading(false);
-      setRedirect(true);
-    
+
+    const post = await newPost(newObject);
+    toast.loading("Uploading your blog", {
+      duration: 3000
+    });
+    if (post.ok) {
+      console.log(post.json().then(data => console.log(data)), "Post Successfully Created")
+      toast.success("Created your blog sucessfully", {
+        duration: 3000
+      });
+      setRedirect(true)
+    }
+    setLoading(false);
+    setDisabled(false);
+    setRedirect(true);
+
 
     setBlogData({
       title: "",
@@ -119,7 +123,7 @@ const CreatePost = () => {
             Create New Post
           </h2>
         </div>
-        <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
+        <form aria-disabled={disabled} className="mt-8 space-y-6" onSubmit={handleSubmit}>
           <div className="rounded-md shadow-sm -space-y-px">
             <div className="py-4">
               <label
@@ -193,10 +197,11 @@ const CreatePost = () => {
 
           <div>
             <button
+              disabled={disabled}
               type="submit"
               className="group relative w-full flex justify-center py-3 px-4 border border-transparent text-lg font-medium rounded-md text-white bg-orange-600  focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-white"
             >
-              {loading ? <img src={loadingGIF} alt="Loading" /> : "Submit"}
+              {loading ? <Loading /> : "Submit"}
             </button>
           </div>
         </form>

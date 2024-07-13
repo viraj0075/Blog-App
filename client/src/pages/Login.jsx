@@ -3,6 +3,7 @@ import toodle from "../assets/doodles-7251441_1280.png";
 import { Link, Navigate } from "react-router-dom";
 import { updateUserInfo } from "../store/userSlice";
 import { useDispatch } from "react-redux";
+import toast from "react-hot-toast";
 
 const Login = () => {
   const [loginData, setLoginData] = useState({
@@ -10,7 +11,6 @@ const Login = () => {
     password: "",
   });
   const [redirect, setRedirect] = useState(false);
-
   const dispatch = useDispatch();
 
   const handleChange = (e) => {
@@ -24,6 +24,7 @@ const Login = () => {
     e.preventDefault();
     if (!formValid) {
       console.log("All fields are required");
+      toast.error("All fields are required",{duration:3500})
     } else {
       try {
         const loginresponse = await fetch(
@@ -38,11 +39,14 @@ const Login = () => {
         if (loginresponse.ok) {
           loginresponse.json().then((user) => {
             dispatch(updateUserInfo(user?.data?.loggedInUser));
+            toast.success("Logged in SuccessFully",{duration:3500})
             setRedirect(true);
             console.log(user);
           });
         } else {
           console.log("Wrong credentials");
+          toast.error("Wrong credentials",{duration:3500})
+
         }
       } catch (error) {
         console.log(error, "Error from loginresponse");
