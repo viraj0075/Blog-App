@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import toodle from "../assets/doodles-7251441_1280.png";
 import { Link } from "react-router-dom";
+import toast from "react-hot-toast";
+
 
 const SignUp = () => {
   const [signup, setSignUp] = useState({
@@ -30,6 +32,7 @@ const SignUp = () => {
     e.preventDefault();
     if (signup.password !== signup.confirmpassword) {
       setError("Passwords do not match");
+      toast.error("Passwords do not match",{duration:3500})
       return;
     }
 
@@ -50,12 +53,18 @@ const SignUp = () => {
           password: "",
           confirmpassword: "",
         });
+        toast.success("Registered user successfully`",{duration:3500})
+
       } else {
         setError("Error registering user");
+        toast.error("Error registering user",{duration:3500})
+
       }
     } catch (error) {
       console.error("Error registering user:", error);
       setError("Error registering user");
+      toast.error("Error registering user",{duration:3500})
+
     }
   };
 
@@ -164,7 +173,7 @@ const SignUp = () => {
                   <button
                     type="submit"
                     disabled={!isFormValid}
-                    className="w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-orange-600 hover:bg-orange-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 transition duration-150 ease-in-out"
+                    className="w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-orange-600 hover:bg-orange-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo transition duration-150 ease-in-out"
                   >
                     Create account
                   </button>

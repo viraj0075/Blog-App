@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import { Navigate, useParams } from 'react-router-dom';
 import Editor from "../components/Editor";
-import { postById,editPost } from '../apis/postApi';
+import { postById, editPost } from '../apis/postApi';
+import Loading from "../components/Loading";
+import { toast, Toaster } from 'react-hot-toast';
+
 
 
 const EditPost = () => {
     const { id } = useParams();
     const [redirect, setRedirect] = useState(false);
+    const [disabled, setDisabled] = useState(false);
     const [loading, setLoading] = useState(false);
     const [editedData, setEditedData] = useState({
         title: "",
@@ -48,12 +52,24 @@ const EditPost = () => {
     const editedPost = async (e) => {
         e.preventDefault();
         console.log(editedData);
-        const newObj = {...editedData,text}
-        const data = await editPost(id,newObj);
+
+        setDisabled(true);
+        setLoading(true);
+        const newObj = { ...editedData, text }
+        toast.loading("Updating your blog", {
+            duration: 3000
+        });
+        const data = await editPost(id, newObj);
         if (data.ok) {
-            console.log(data.json().then(data => console.log(data)), "Post Successfully Updated")
-            setRedirect(true)
+            console.log(data.json()
+                .then(data => console.log(data))
+                .then(err => toast.error(err?.message))
+                , "Post Successfully Updated")
         }
+        toast.success("Success fully Updated the Blog", { duration: 3000 });
+        setDisabled(false);
+        setLoading(false);
+        setRedirect(true);
 
     }
 
@@ -65,6 +81,7 @@ const EditPost = () => {
 
     return (
         <>
+
             <div className="lg:mx-[18rem] mx-[2rem] p-4 bg-[#030d2e]">
                 <div>
                     <h2 className="mt-6 text-center text-4xl leading-9 font-extrabold text-orange-500">
@@ -115,7 +132,7 @@ const EditPost = () => {
                         Content
                     </label>
                     <Editor name="text" onChange={setText} value={text} className="w-full bg-transparent text-white focus:outline-none focus:ring-2 focus:ring-orange-500" />
-                    <button className="w-full bg-orange-500 text-white p-2 rounded hover:bg-orange-600" type='submit'>Update post</button>
+                    <button disabled={disabled} className="w-full bg-orange-500 text-white p-2 rounded hover:bg-orange-600" type='submit'>{loading ? <Loading /> : "Update post"}</button>
                 </form>
             </div>
         </>

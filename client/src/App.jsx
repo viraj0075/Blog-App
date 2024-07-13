@@ -9,10 +9,12 @@ import { Provider } from "react-redux";
 import store from "./store/store";
 import EditPost from "./pages/EditPost";
 import UserProfile from "./pages/UserProfile";
+import { Toaster } from "react-hot-toast";
 
 function App() {
   return (
     <> 
+       <Toaster />
       <Provider store={store}>
         <Routes>
           <Route path="/" element={<Layout />}>

@@ -16,6 +16,39 @@ export const postById = async (id) => {
   return data;
 };
 
+
+export const newPost = async(incomingData) => 
+{
+  console.log(incomingData);
+  const {title,summary,text} = incomingData;
+  let {file} = incomingData;
+  console.log(title,summary,text,file,"data from create post");
+
+  let newObj;
+  if(incomingData?.file)
+  {
+    const res = await uploadToCloudinary(incomingData?.file);
+    newObj = {...incomingData,file:res};
+    console.log("THis is the New post",newObj);
+  }
+  else{
+    newObj = {...incomingData}
+  }
+
+  const post = await fetch(`http://localhost:4000/api/v1/users/createpost`,
+    {
+      method:"POST",
+      credentials:"include",
+      body:JSON.stringify(newObj),
+      headers:{"Content-Type": "application/json"}
+    }
+  )
+  const data = await post.json();
+  console.log(data);
+  return data;
+}
+
+
 export const editPost = async (id, incomingData) => {
   console.log(id, incomingData);
 
